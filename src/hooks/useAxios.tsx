@@ -7,6 +7,7 @@ type AxiosProps = {
   url: string;
   params?: {};
   apiType: string;
+  tabTarget: number | string;
 };
 type ResponseType = {
   adult: boolean;
@@ -35,11 +36,11 @@ type ResponseType = {
   title: string;
 };
 
-const useAxios = ({ method, url, params, apiType }: AxiosProps) => {
+const useAxios = ({ method, url, params, apiType, tabTarget }: AxiosProps) => {
   const [response, setResponse] = useState<Array<ResponseType>>([]);
   const [loading, setloading] = useState(true);
   const [error, setError] = useState("");
-
+  console.log("@@@@@@@@axiso");
   const axiosData = async () => {
     await instance[method](url, { params })
       .then((res) => {
@@ -61,7 +62,7 @@ const useAxios = ({ method, url, params, apiType }: AxiosProps) => {
     }
 
     axiosData();
-  }, []);
+  }, [tabTarget]);
 
   return { response, error, loading };
 };

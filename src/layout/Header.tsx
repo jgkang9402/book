@@ -17,9 +17,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
 import openbook from "../assets/logo.png";
+import NavigateLink from "../components/common/NavigateLink";
 
 const pages = ["신간", "추천", "베스트셀러", "나의책장"];
-const settings = ["Profile", "Login"];
+const settings = [
+  { text: "Profile", path: "/profile" },
+  // { text: "Join", path: "/signup" },
+  { text: "Login", path: "/signin" },
+];
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -81,41 +86,43 @@ function HeaderCom() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: "#d2c8c0" }}>
+    <AppBar
+      position="sticky"
+      sx={{ backgroundColor: "#d2c8c0", minHeight: "7vh" }}
+    >
       {/* <AppBar position="sticky" sx={{ backgroundColor: "#d26d19d1" }}> */}
       {/* <AppBar position="static" sx={{ backgroundColor: "#19d2be" }}> */}
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            // href="/"
-            sx={{
-              cursor: "pointer",
-              alignItems: "center",
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              // letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            <Avatar
-              alt=""
-              sx={{ borderRadius: 0, mr: ".2rem" }}
-              src={openbook}
-            />
-            REBOOK
-          </Typography>
+          <NavigateLink path={"/"}>
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                cursor: "pointer",
+                alignItems: "center",
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                // letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              <Avatar
+                alt=""
+                sx={{ borderRadius: 0, mr: ".2rem" }}
+                src={openbook}
+              />
+              REBOOK
+            </Typography>
+          </NavigateLink>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -218,7 +225,7 @@ function HeaderCom() {
               />
             </Search>
           </Box>
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, ml: "2rem" }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="" />
@@ -240,10 +247,12 @@ function HeaderCom() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+              {settings.map((setting, idx) => (
+                <NavigateLink key={idx} color={"#d2c8c0"} path={setting.path}>
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting.text}</Typography>
+                  </MenuItem>
+                </NavigateLink>
               ))}
             </Menu>
           </Box>

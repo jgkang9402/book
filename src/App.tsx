@@ -1,8 +1,7 @@
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { BrowserRouter } from "react-router-dom";
 import HeaderCom from "./layout/Header";
 import PageCom from "./pages/PageCom";
+import Footer from "./layout/Footer";
 
 function App() {
   return (
@@ -10,6 +9,7 @@ function App() {
       <div className="App">
         <HeaderCom />
         <PageCom />
+        <Footer />
       </div>
     </BrowserRouter>
   );

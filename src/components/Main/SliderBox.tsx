@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import SliderTab from "./SliderTab";
 import SliderItem from "./SliderItem";
 
@@ -6,6 +6,7 @@ const SliderBox = (): React.ReactElement => {
   // const [data, setData] = useState<BookDataType[]>([]);
   // const [step, setStep] = useState("all");
   // const step = useRef("all");
+  const [tabTarget, setTabTarget] = useState(0);
   const tabSlideSet = {
     dots: true,
     fade: true,
@@ -14,11 +15,22 @@ const SliderBox = (): React.ReactElement => {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
-    autoplay: true,
+    // autoplay: true,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          // slideToShow: 2,
+          dots: false,
+        },
+      },
+    ],
     // autoplaySpeed: 2500,
   };
-  const params = {
-    // ttbkey: "",
+  console.log("box");
+
+  const allParams = {
+    ttbkey: process.env.REACT_APP_ALADIN_KEY,
     QueryType: "Bestseller",
     MaxResults: 20,
     start: 1,
@@ -27,96 +39,84 @@ const SliderBox = (): React.ReactElement => {
     Version: 20131101,
     Cover: "Big",
   };
-
+  const programingParams = {
+    ttbkey: process.env.REACT_APP_ALADIN_KEY,
+    QueryType: "ItemNewSpecial",
+    // CategoryId: 5058,
+    MaxResults: 20,
+    start: 1,
+    SearchTarget: "Book",
+    output: "js",
+    Version: 20131101,
+    Cover: "Big",
+  };
+  const economyParams = {
+    ttbkey: process.env.REACT_APP_ALADIN_KEY,
+    QueryType: "ItemEditorChoice",
+    // QueryType: "ItemNewSpecial",
+    CategoryId: 170,
+    MaxResults: 20,
+    start: 1,
+    SearchTarget: "Book",
+    output: "js",
+    Version: 20131101,
+    Cover: "Big",
+  };
+  const historyParams = {
+    ttbkey: process.env.REACT_APP_ALADIN_KEY,
+    QueryType: "BlogBest",
+    // QueryType: "ItemNewSpecial",
+    // CategoryId: 8984,
+    MaxResults: 20,
+    start: 1,
+    SearchTarget: "Book",
+    output: "js",
+    Version: 20131101,
+    Cover: "Big",
+  };
   return (
     <>
-      <SliderTab />
-      <SliderItem tabSlideSet={tabSlideSet} />
+      <SliderTab tabTarget={tabTarget} setTabTarget={setTabTarget} />
+      {(() => {
+        switch (tabTarget) {
+          case 0:
+            return (
+              <SliderItem
+                tabSlideSet={tabSlideSet}
+                tabTarget={tabTarget}
+                apiParams={allParams}
+              />
+            );
+          case 1:
+            return (
+              <SliderItem
+                tabSlideSet={tabSlideSet}
+                tabTarget={tabTarget}
+                apiParams={programingParams}
+              />
+            );
+          case 2:
+            return (
+              <SliderItem
+                tabSlideSet={tabSlideSet}
+                tabTarget={tabTarget}
+                apiParams={economyParams}
+              />
+            );
+
+          case 3:
+            return (
+              <SliderItem
+                tabSlideSet={tabSlideSet}
+                tabTarget={tabTarget}
+                apiParams={historyParams}
+              />
+            );
+        }
+      })()}
+      {/* <SliderItem tabSlideSet={tabSlideSet} tabTarget={tabTarget} /> */}
     </>
   );
 };
 
 export default SliderBox;
-
-// import React, { useEffect, useRef, useState } from "react";
-// import { alaDum, alaDum2, alaDum3 } from "../../util/aladinDummy";
-// import Slider from "react-slick";
-// import SliderTab from "./SliderTab";
-// import SliderItem from "./SliderItem";
-
-// // export interface BookDataType {
-// //   // type BookDataType = {
-// //   adult: boolean;
-// //   author: string;
-// //   bestDuration?: string;
-// //   bestRank: number;
-// //   categoryId: number;
-// //   categoryName: string;
-// //   cover: string;
-// //   customerReviewRank: number;
-// //   description: string;
-// //   fixedPrice: boolean;
-// //   isbn: string;
-// //   isbn13: string;
-// //   itemId: number;
-// //   link: string;
-// //   mallType: string;
-// //   mileage: number;
-// //   priceSales: number;
-// //   priceStandard: number;
-// //   pubDate: string;
-// //   publisher: string;
-// //   salesPoint: number;
-// //   stockStatus: string;
-// //   subInfo: object;
-// //   title: string;
-// // }
-
-// const SliderBox = (): React.ReactElement => {
-//   // const [data, setData] = useState<BookDataType[]>([]);
-//   const [step, setStep] = useState("all");
-//   // const step = useRef("all");
-//   useEffect(() => {
-//     console.log(alaDum);
-//     // setData(alaDum);
-//     // setData(alaDum2);
-//     // setData(alaDum3);
-//   }, []);
-//   const settings = {
-//     dots: true,
-//     // lazyLoad: true,
-//     fade: true,
-//     infinite: true,
-//     speed: 500,
-//     slidesToShow: 1,
-//     slidesToScroll: 1,
-//     initialSlide: 0,
-//   };
-
-//   return (
-//     <>
-//       <SliderTab />
-//       <Slider {...settings}>
-//         <SliderItem />;
-//         {/* {(() => {
-//           switch (step) {
-//             case "all":
-//               return data.map((item, idx) => {
-//                 return <SliderItem key={idx} bookData={item} />;
-//               });
-//           }
-//         })()} */}
-//       </Slider>
-//     </>
-//   );
-// };
-
-// export default SliderBox;
-
-// /*
-//          {data &&
-//           data.map((item, idx) => {
-//             return <SliderItem key={idx} bookData={item} />;
-//           })}
-
-// */
