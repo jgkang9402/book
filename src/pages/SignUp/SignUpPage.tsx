@@ -21,6 +21,7 @@ import {
 import { auth } from "../../firebase/Firebase";
 import SearchModal from "../../components/SignUp/SearchModal";
 import { InputAdornment } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
@@ -30,6 +31,7 @@ export default function SignUp() {
     bookName: string;
     bookIsbn: string;
   }>(null);
+  const navigate = useNavigate();
   const propsData = [
     {
       name: "email",
@@ -110,6 +112,7 @@ export default function SignUp() {
         console.log(userRef);
         // $router.replace('/login');
         console.log("submit");
+        navigate("/signin");
       })
       .catch((err) => console.log(err));
   };
