@@ -9,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import SearchIcon from "@mui/icons-material/Search";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import TextBox from "../../components/SignUp/TextBox";
 import NavigateLink from "../../components/common/NavigateLink";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import {
@@ -22,6 +21,7 @@ import { auth } from "../../firebase/Firebase";
 import SearchModal from "../../components/SignUp/SearchModal";
 import { InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import TextBox from "../../components/common/TextBox";
 
 const theme = createTheme();
 
@@ -35,19 +35,19 @@ export default function SignUp() {
   const propsData = [
     {
       name: "email",
-      label: "Email",
+      helperText: "Email",
       type: "email",
       xs: 12,
     },
     {
       name: "password",
-      label: "Password",
+      helperText: "Password",
       type: "password",
       xs: 12,
     },
     {
       name: "birth",
-      label: "Birth",
+      helperText: "Birth",
       type: "date",
       xs: 12,
       sm: 6,
@@ -61,7 +61,7 @@ export default function SignUp() {
     },
     {
       name: "favoBook",
-      label: "Favorite Book",
+      helperText: "Favorite Book",
       type: "text",
       placeholder: "책을 검색 해주세요.",
       xs: 12,
@@ -171,7 +171,11 @@ export default function SignUp() {
           >
             <Grid container spacing={2}>
               {propsData.map((item, idx) => {
-                return <TextBox key={idx} properties={item} />;
+                return (
+                  <Grid item key={idx} xs={item.xs} sm={item.sm}>
+                    <TextBox properties={item} />
+                  </Grid>
+                );
               })}
               <SearchModal
                 open={open}
