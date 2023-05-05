@@ -25,7 +25,7 @@ import TextBox from "../../components/common/TextBox";
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function SignUpPage() {
   const [open, setOpen] = useState(false);
   const [searchData, setSearchData] = useState<null | {
     bookName: string;

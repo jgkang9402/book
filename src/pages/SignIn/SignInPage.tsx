@@ -19,7 +19,7 @@ import TextBox from "../../components/common/TextBox";
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function SignInPage() {
   const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
