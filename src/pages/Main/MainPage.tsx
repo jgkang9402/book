@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box } from "@mui/material";
 import SliderBox from "../../components/Main/SliderBox";
 import SliderItem from "../../components/Main/SliderItem";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase/Firebase";
 
 const MainPage = () => {
   const tabSlideSet = {
@@ -23,11 +25,36 @@ const MainPage = () => {
     ],
     // autoplaySpeed: 2500,
   };
+  // const test = async () => {
+  //   const usersCollectionRef = collection(db, "users");
+  //   console.log(usersCollectionRef);
+  //   const userSnap = await getDocs(usersCollectionRef);
+  //   console.log(userSnap);
+  //   const data = userSnap.docs.map((doc) => ({
+  //     ...doc.data(),
+  //     id: doc.id,
+  //   }));
+  //   console.log(data);
+  // };
+  // useEffect(() => {
+  //   test();
+  // }, []);
 
   return (
-    <Box sx={{ mt: "2rem" }}>
+    <Box sx={{}}>
+      {/* <Box sx={{ mt: "2rem" }}> */}
       <SliderBox />
-      {/* <SliderItem tabSlideSet={tabSlideSet} apiParams={{}} /> */}
+      <Box
+        sx={{ height: "500px", backgroundColor: "red", margin: "5px" }}
+      ></Box>
+      <Box
+        sx={{ height: "500px", backgroundColor: "blue", margin: "5px" }}
+      ></Box>
+      <Box
+        sx={{ height: "500px", backgroundColor: "yellow", margin: "5px" }}
+      ></Box>
+      {/* <SliderBox />
+      <SliderBox /> */}
     </Box>
   );
 };

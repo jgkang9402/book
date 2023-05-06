@@ -19,7 +19,7 @@ export const StyledLink = styled(Link)<StyledLinkProps>`
 
 const NavigateLink = ({ path, color, children }: NavigateLinkProps) => {
   return (
-    <StyledLink color={color} to={path}>
+    <StyledLink color={color ? color : ""} to={path}>
       {children}
     </StyledLink>
   );

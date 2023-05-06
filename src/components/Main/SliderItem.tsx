@@ -16,7 +16,7 @@ import Spinner from "../common/Spinner";
 export const StyledSlider = styled(Slider)`
   .slick-prev:before,
   .slick-next:before {
-    color: #d2c8c0;
+    color: #acb1d6;
   }
 `;
 export interface BookDataType {

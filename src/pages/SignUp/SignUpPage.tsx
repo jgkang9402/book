@@ -144,14 +144,13 @@ export default function SignUpPage() {
   return (
     <ThemeProvider theme={theme}>
       <Container
-        component="main"
         maxWidth="xs"
-        // sx={{ backgroundColor: "#d2c8c0" }}
+        // sx={{ backgroundColor: "#ACB1D6" }}
       >
-        <CssBaseline />
+        {/* <CssBaseline /> */}
         <Box
           sx={{
-            marginTop: 8,
+            // marginTop: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",

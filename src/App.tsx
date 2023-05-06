@@ -1,15 +1,11 @@
 import { BrowserRouter } from "react-router-dom";
-import HeaderCom from "./layout/Header";
-import PageCom from "./pages/PageCom";
-import Footer from "./layout/Footer";
+import Layout from "layout/Layout";
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <HeaderCom />
-        <PageCom />
-        <Footer />
+        <Layout />
       </div>
     </BrowserRouter>
   );

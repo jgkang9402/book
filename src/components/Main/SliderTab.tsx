@@ -13,8 +13,7 @@ const SliderTab = ({ tabTarget, setTabTarget }: TabPropsType) => {
     setTabTarget(newValue);
   };
   return (
-    <Box>
-      {/* <Box sx={{ bgcolor: "background.paper" }}> */}
+    <Box sx={{ position: "relative" }}>
       <Tabs
         value={tabTarget}
         onChange={handleChange}
@@ -22,11 +21,14 @@ const SliderTab = ({ tabTarget, setTabTarget }: TabPropsType) => {
         scrollButtons
         allowScrollButtonsMobile
         aria-label="scrollable force tabs example"
+        sx={{
+          backgroundColor: "#DBDFEA",
+        }}
       >
-        <Tab label="베스트셀러" sx={{ color: "#d2c8c0" }} />
-        <Tab label="신규베스트" sx={{ color: "#d2c8c0" }} />
-        <Tab label="에디터추천" sx={{ color: "#d2c8c0" }} />
-        <Tab label="블로거추천" sx={{ color: "#d2c8c0" }} />
+        <Tab label="베스트셀러" sx={{ color: "#c2ae9f" }} />
+        <Tab label="신규베스트" sx={{ color: "#c2ae9f" }} />
+        <Tab label="에디터추천" sx={{ color: "#c2ae9f" }} />
+        <Tab label="블로거추천" sx={{ color: "#c2ae9f" }} />
       </Tabs>
     </Box>
   );
