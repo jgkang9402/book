@@ -48,13 +48,16 @@ export default function GridItem({ itemData, clickEvent }: itemDataPropsType) {
         image={itemData.cover}
         title="green iguana"
       />
-      <CardContent sx={{ pb: "0", height: "35%", overflow: "scroll" }}>
+      <CardContent sx={{ pb: "0", height: "25%", overflow: "scroll" }}>
         <Typography gutterBottom component="div" sx={{ fontSize: ".8rem" }}>
           {itemData.title}
         </Typography>
         <Typography color="text.secondary" sx={{ fontSize: ".8rem" }}>
-          {itemData.publisher}
+          {itemData.author}
         </Typography>
+        {/* <Typography color="text.secondary" sx={{ fontSize: ".8rem" }}>
+          {itemData.publisher}
+        </Typography> */}
       </CardContent>
       <CardActions>
         <Button

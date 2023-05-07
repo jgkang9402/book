@@ -15,3 +15,37 @@ export const isEmpty = (value: string | object | any[] | number): boolean => {
     return false;
   }
 };
+
+type QueryObject = {
+  [key: string]: string;
+};
+
+export const querystringToObject = (queryString: string): QueryObject => {
+  const queryObject: QueryObject = {};
+
+  if (!queryString) {
+    return queryObject;
+  }
+
+  const queryParams = queryString.substr(1).split("&");
+
+  for (const param of queryParams) {
+    const [key, value] = param.split("=");
+
+    if (!key) {
+      continue;
+    }
+
+    queryObject[key] = value;
+  }
+
+  return queryObject;
+};
+
+export const objectToQuerystring = (queryObject: QueryObject): string => {
+  const queryString = Object.entries(queryObject)
+    .map(([key, value]) => `${key}=${value}`)
+    .join("&");
+
+  return `?${queryString}`;
+};

@@ -31,8 +31,8 @@ interface itemDataPropsType {
 }
 interface GridContPropsType {
   itemData: itemDataPropsType[] | null | [];
-  clickEvent: (bookIsbn: string, bookName: string) => void;
   // clickEvent: (data: string) => void;
+  clickEvent: (bookIsbn: string, bookName: string) => void;
 }
 
 export default function GridCont({ itemData, clickEvent }: GridContPropsType) {
@@ -42,7 +42,8 @@ export default function GridCont({ itemData, clickEvent }: GridContPropsType) {
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
-        sx={{ maxHeight: "50vh", overflow: "scroll" }}
+        sx={{ overflow: "scroll" }}
+        // sx={{ maxHeight: "50vh", overflow: "scroll" }}
       >
         {itemData !== null
           ? itemData?.map((item, idx) => (
@@ -53,8 +54,12 @@ export default function GridCont({ itemData, clickEvent }: GridContPropsType) {
                   // border: "1px solid #000",
                 }}
                 xs={2}
-                sm={4}
-                md={4}
+                // sm={6}
+                // md={6}
+                // sm={4}
+                // md={4}
+                sm={3}
+                md={3}
                 key={idx}
               >
                 {/* <GridItem itemData={itemData} /> */}

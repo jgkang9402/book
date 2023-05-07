@@ -7,7 +7,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    console.log("!!!!!리퀘스트컨피그", config);
+    // console.log("!!!!!리퀘스트컨피그", config);
     if (config.url?.includes("/v1/")) {
       config.headers["X-Naver-Client-Id"] =
         process.env.REACT_APP_NAVER_CLIENT_ID;
@@ -29,7 +29,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (config) => {
-    console.log("@@@@@리스폰스컨피그", config);
+    // console.log("@@@@@리스폰스컨피그", config);
     return config;
   },
   (err) => {
