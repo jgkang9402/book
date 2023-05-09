@@ -27,15 +27,11 @@ const NavigationTab = ({ tabTarget, handleTabFunc, tabList }: TabPropsType) => {
   const handlePath = (path: string) => {
     navigate(path, { replace: true });
   };
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    handleTabFunc(newValue);
-  };
-
   return (
     <Box sx={{ position: "relative" }}>
       <Tabs
         value={tabTarget}
-        onChange={handleChange}
+        onChange={(e, newValue) => handleTabFunc(newValue)}
         variant="fullWidth"
         scrollButtons
         allowScrollButtonsMobile

@@ -4,13 +4,19 @@ export const enterInput = (e: React.KeyboardEvent, paramFunc: () => void) => {
   }
 };
 
-export const isEmpty = (value: string | object | any[] | number): boolean => {
+export const isEmpty = (
+  value: string | object | any[] | number | undefined | null
+): boolean => {
   if (typeof value === "string" && value.trim() === "") {
     return true;
   } else if (typeof value === "object" && value !== null) {
     return Object.keys(value).length === 0;
   } else if (Array.isArray(value)) {
     return value.length === 0;
+  } else if (value === undefined) {
+    return true;
+  } else if (value === null) {
+    return true;
   } else {
     return false;
   }

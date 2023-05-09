@@ -1,12 +1,15 @@
 import { Box, CircularProgress } from "@mui/material";
 import React from "react";
 
-const Spinner = () => {
+interface Spinnertype {
+  height?: string;
+}
+const Spinner = ({ height }: Spinnertype) => {
   return (
     <Box
       sx={{
         textAlign: "center",
-        height: "50vh",
+        height: height ? height : "50vh",
         display: "flex",
         justifyContent: "space-around",
         alignItems: "center",

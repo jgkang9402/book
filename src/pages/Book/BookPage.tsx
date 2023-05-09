@@ -1,9 +1,14 @@
-import { Pagination, Stack } from "@mui/material";
+import { Box, Pagination, Stack } from "@mui/material";
 import { getTypeListBook } from "api/AladinApi";
 import GridCont from "components/common/GridCont";
 import NavigationTab from "components/common/NavigationTab";
+import PageNation from "components/common/PageNation";
+import Spinner from "components/common/Spinner";
+import { useAppDispatch, useAppSelector } from "hooks/useStoreHooks";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { handleCurPage } from "store/slices/bookSlice";
+import { RootState } from "store/store";
 import { alaDum } from "util/aladinDummy";
 import { isEmpty, querystringToObject } from "util/commonUtil";
 
@@ -13,11 +18,13 @@ const BookPage = () => {
       labelName: "베스트셀러",
       color: "#c2ae9f",
       path: "?curtab=bestseller",
+      pathType: "bestseller",
     },
     {
       labelName: "신규베스트",
       color: "#c2ae9f",
       path: "?curtab=itemnewspecial",
+      pathType: "itemnewspecial",
       // path: "?curtab=newbest",
     },
     {
@@ -25,36 +32,41 @@ const BookPage = () => {
       color: "#c2ae9f",
       // path: "?curtab=blogpick",
       path: "?curtab=blogbest",
+      pathType: "blogbest",
     },
     {
       labelName: "개발도서",
       color: "#c2ae9f",
       path: "?curtab=itemeditorchoice",
+      pathType: "itemeditorchoice",
     },
   ];
-  const [tabTarget, setTabTarget] = useState(0);
-  const navigate = useNavigate();
-  const [page, setPage] = useState(1);
+  const [curTab, setCurTabTarget] = useState(0);
+  const [curPage, setCurPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  // const [curTab, setCurTab] = useState("");
   const [bookList, setBookList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
+
   const handleTab = (target: number) => {
-    setPage(1);
-    setTabTarget(target);
+    setCurTabTarget(target);
+    setCurPage(1);
   };
-  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value);
+  const handlePagenation = (value: number) => {
+    setCurPage(value);
+    navigate(tabList[curTab].path + `&curpage=${value}`, { replace: true });
   };
-  const testFunc = (bookIsbn: string, bookName: string) => {
+  const getBookInfo = (bookIsbn: string, bookName: string) => {
     console.log(bookIsbn, bookName);
+    navigate(bookIsbn);
   };
-  const getBookList = async () => {
+
+  const getBookList = async (queryType: string, page: number) => {
+    if (isLoading) return;
     const params = {
       ttbkey: process.env.REACT_APP_ALADIN_KEY,
-      QueryType: isEmpty(location.search)
-        ? "bestseller"
-        : querystringToObject(location.search).curtab,
+      QueryType: queryType,
       MaxResults: 20,
       start: page,
       // sort: "Title",
@@ -66,40 +78,64 @@ const BookPage = () => {
     if (params.QueryType === "itemeditorchoice") {
       params.CategoryId = 7396;
     }
+    setIsLoading(true);
     const response = await getTypeListBook(params);
     console.log(response);
-
+    setIsLoading(false);
     if (response.status === 200) {
       setBookList(response.data.item);
-      setTotalPage(Math.floor(response.data.totalResults / 20));
+      setTotalPage(Math.ceil(response.data.totalResults / 20));
+    }
+  };
+  const resetFunc = () => {
+    const findIdx = tabList.findIndex(
+      (item) => item.pathType === querystringToObject(location.search).curtab
+    );
+    setCurTabTarget(findIdx);
+    if (!isEmpty(querystringToObject(location.search).curpage)) {
+      setCurPage(Number(querystringToObject(location.search).curpage));
     }
   };
 
   useEffect(() => {
     if (isEmpty(location.search)) {
+      // 아예첫호출
       navigate(tabList[0].path, { replace: true });
+      getBookList(tabList[0].pathType, 1);
+      return;
+    } else {
+      if (isEmpty(bookList)) {
+        resetFunc();
+        getBookList(
+          querystringToObject(location.search).curtab,
+          Number(querystringToObject(location.search).curpage)
+        );
+      } else {
+        getBookList(querystringToObject(location.search).curtab, curPage);
+      }
     }
-    getBookList();
-  }, [tabTarget, page]);
-  // }, [getBookList, location.search, page, tabTarget]);
-
+  }, [curPage, curTab]);
   return (
     <>
       <NavigationTab
-        tabTarget={tabTarget}
+        tabTarget={curTab}
         handleTabFunc={(target) => handleTab(target)}
         tabList={tabList}
       />
-      <GridCont itemData={bookList} clickEvent={testFunc} />
-      {/* <GridCont itemData={alaDum} clickEvent={testFunc} /> */}
-      <Stack spacing={2}>
-        <Pagination
-          count={totalPage}
-          // defaultPage={page}
-          page={page}
-          sx={{ margin: "0 auto" }}
-          color="primary"
-          onChange={handleChange}
+      <Box sx={{ margin: "3% 0" }}>
+        {!isLoading ? (
+          <GridCont itemData={bookList} clickEvent={getBookInfo} />
+        ) : (
+          <Spinner height="75vh" />
+        )}
+        {/* <GridCont itemData={bookList} clickEvent={getBookInfo} /> */}
+      </Box>
+      <Stack spacing={2} sx={{ mb: "15%" }}>
+        <PageNation
+          page={curPage}
+          // totalPage={20}
+          totalPage={totalPage}
+          handlePageChangeFunc={handlePagenation}
         />
       </Stack>
     </>

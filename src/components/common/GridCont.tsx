@@ -43,26 +43,18 @@ export default function GridCont({ itemData, clickEvent }: GridContPropsType) {
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 4, sm: 8, md: 12 }}
         sx={{ overflow: "scroll" }}
-        // sx={{ maxHeight: "50vh", overflow: "scroll" }}
       >
         {itemData !== null
           ? itemData?.map((item, idx) => (
               <Grid
                 sx={{
                   height: "30vh",
-                  // overflow: "hidden",
-                  // border: "1px solid #000",
                 }}
                 xs={2}
-                // sm={6}
-                // md={6}
-                // sm={4}
-                // md={4}
                 sm={3}
                 md={3}
                 key={idx}
               >
-                {/* <GridItem itemData={itemData} /> */}
                 <GridItem itemData={item} clickEvent={clickEvent} />
               </Grid>
             ))
