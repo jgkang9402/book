@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
+  Button,
   Card,
   CardContent,
   CardMedia,
@@ -72,71 +73,6 @@ const SliderItem = ({
     console.log(123);
   }, [tabTarget]);
   return (
-    // <>
-    //   {!loading ? (
-    //     <StyledSlider {...tabSlideSet}>
-    //       {response?.map((item, idx) => {
-    //         return (
-    //           <Box key={idx} sx={{ display: "flex", flexDirection: "column" }}>
-    //             <Card
-    //               sx={{
-    //                 display: "flex",
-    //                 height: "50vh",
-    //                 maxHeight: "50vh",
-    //                 boxShadow: "0 5px 20px rgba(0, 0, 0, 0.2) inset",
-    //               }}
-    //             >
-    //               <Box sx={{ padding: "2%", width: "30%" }}>
-    //                 <CardMedia
-    //                   component="img"
-    //                   sx={{ width: "100%", height: "100%", objectFit: "fill" }}
-    //                   image={item.cover}
-    //                 />
-    //               </Box>
-    //               <CardContent
-    //                 sx={{
-    //                   flex: "1 0 auto",
-    //                   width: "70%",
-    //                   pt: "2%",
-    //                   height: "100%",
-    //                 }}
-    //               >
-    //                 <Typography component="span" color="text.secondary">
-    //                   {item.bestDuration ? item.bestDuration : "신규진입"}
-    //                 </Typography>
-    //                 <Typography component="div" variant="h5">
-    //                   {item.title}
-    //                 </Typography>
-    //                 <Typography
-    //                   variant="subtitle1"
-    //                   color="text.secondary"
-    //                   component="div"
-    //                 >
-    //                   {item.author}
-    //                 </Typography>
-    //                 <Typography
-    //                   variant="subtitle1"
-    //                   color="text.secondary"
-    //                   component="div"
-    //                   sx={{
-    //                     overflow: "auto",
-    //                     maxHeight: "50%",
-    //                     mt: "2%",
-    //                   }}
-    //                 >
-    //                   {item.description}
-    //                 </Typography>
-    //               </CardContent>
-    //             </Card>
-    //           </Box>
-    //         );
-    //       })}
-    //     </StyledSlider>
-    //   ) : (
-    //     <Spinner />
-    //   )}
-    // </>
-    //
     <StyledSlider {...tabSlideSet}>
       {alaDum?.map((item, idx) => {
         // {response?.map((item, idx) => {
@@ -145,12 +81,14 @@ const SliderItem = ({
             <Card
               sx={{
                 display: "flex",
-                height: "50vh",
-                maxHeight: "50vh",
+                maxHeight: "45vh",
+                minHeight: "45vh",
+                // height: "100%",
+                width: "100%",
                 boxShadow: "0 5px 20px rgba(0, 0, 0, 0.2) inset",
               }}
             >
-              <Box sx={{ padding: "2%", width: "30%" }}>
+              <Box sx={{ padding: "2%", width: "40%", pt: "15%", pb: "15%" }}>
                 <CardMedia
                   component="img"
                   sx={{ width: "100%", height: "100%", objectFit: "fill" }}
@@ -160,14 +98,44 @@ const SliderItem = ({
               <CardContent
                 sx={{
                   flex: "1 0 auto",
-                  width: "70%",
+                  // width: "55%",
+                  width: "60%",
                   pt: "2%",
-                  height: "100%",
+                  maxHeight: "45vh",
+                  height: "45vh",
+                  // overflowY: "scroll",
                 }}
               >
-                <Typography component="span" color="text.secondary">
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: ".5rem",
+                  }}
+                >
+                  <Typography component="span" color="text.secondary">
+                    {item.bestDuration ? item.bestDuration : "신규진입"}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    // sx={{ margin: "0 auto" }}
+                  >
+                    책 정보 보러가기
+                  </Button>
+                </Box>
+                {/* <Typography component="span" color="text.secondary">
                   {item.bestDuration ? item.bestDuration : "신규진입"}
                 </Typography>
+                <Button
+                  variant="contained"
+                  size="small"
+                  sx={{ margin: "0 auto" }}
+                >
+                  책 정보 보러가기
+                </Button> */}
+
                 <Typography component="div" variant="h5">
                   {item.title}
                 </Typography>
@@ -183,13 +151,25 @@ const SliderItem = ({
                   color="text.secondary"
                   component="div"
                   sx={{
+                    // overflow: "hidden",
                     overflow: "auto",
-                    maxHeight: "50%",
+                    // height: "70%",
+                    // maxHeight: "50%",
+                    maxHeight: "25vh",
                     mt: "2%",
                   }}
                 >
                   {item.description}
                 </Typography>
+                {/* <Box>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    sx={{ margin: "0 auto" }}
+                  >
+                    책 정보 보러가기
+                  </Button>
+                </Box> */}
               </CardContent>
             </Card>
           </Box>

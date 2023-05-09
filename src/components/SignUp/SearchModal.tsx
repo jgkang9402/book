@@ -29,6 +29,7 @@ const style = {
 interface PagenationBtnType {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  // clickEvent: (data: string) => void;
   clickEvent: (bookIsbn: string, bookName: string) => void;
 }
 interface itemDataPropsType {

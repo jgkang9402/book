@@ -1,21 +1,57 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import logo from "assets/logo.png";
 import { Avatar } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Footer = () => {
-  const [value, setValue] = useState(0);
+  const [curLoction, setCurLoction] = useState(-1);
   const navigate = useNavigate();
+  const location = useLocation();
+  // const handleLocationTarget = () => {
+  //   switch (location.pathname) {
+  //     case "/book":
+  //       setCurLoction(1);
+  //       break;
+  //     case "/mybook":
+  //       setCurLoction(3);
+  //       break;
+  //     case "/bookcomunity":
+  //       setCurLoction(4);
+  //       break;
+  //     default:
+  //       setCurLoction(-1);
+  //       break;
+  //   }
+  // };
+  // useEffect(() => {
+  //   handleLocationTarget();
+  // }, [location]);
+  const handleLocationTarget = useCallback(() => {
+    switch (location.pathname) {
+      case "/book":
+        setCurLoction(1);
+        break;
+      case "/mybook":
+        setCurLoction(3);
+        break;
+      case "/bookcomunity":
+        setCurLoction(4);
+        break;
+      default:
+        setCurLoction(-1);
+        break;
+    }
+  }, [location]);
+  useEffect(() => {
+    handleLocationTarget();
+  }, [handleLocationTarget, location]);
 
   return (
     <Box
@@ -34,10 +70,10 @@ const Footer = () => {
     >
       <BottomNavigation
         showLabels
-        value={value}
+        value={curLoction}
         sx={{ backgroundColor: "#ACB1D6", height: "100%" }}
         onChange={(event, newValue) => {
-          setValue(newValue);
+          setCurLoction(newValue);
         }}
       >
         <BottomNavigationAction label="메뉴" icon={<MenuIcon />} />
@@ -64,49 +100,6 @@ const Footer = () => {
         />
       </BottomNavigation>
     </Box>
-    // <Box
-    //   component={"footer"}
-    //   sx={{
-    //     height: "7%",
-    //     position: "sticky",
-    //     bottom: 0,
-    //     left: 0,
-    //     right: 0,
-    //     backgroundColor: "#000",
-    //   }}
-    // >
-    //   <BottomNavigation
-    //     showLabels
-    //     value={value}
-    //     sx={{ backgroundColor: "#ACB1D6", height: "100%" }}
-    //     onChange={(event, newValue) => {
-    //       setValue(newValue);
-    //     }}
-    //   >
-    //     <BottomNavigationAction label="메뉴" icon={<MenuIcon />} />
-    //     <BottomNavigationAction
-    //       label="책방"
-    //       onClick={() => navigate("/book")}
-    //       icon={<MenuBookIcon />}
-    //     />
-    //     <BottomNavigationAction
-    //       onClick={() => navigate("/")}
-    //       icon={
-    //         <Avatar src={logo} sx={{ margin: "0 auto" }} variant="square" />
-    //       }
-    //     />
-    //     <BottomNavigationAction
-    //       label="나의책방"
-    //       onClick={() => navigate("/mybook")}
-    //       icon={<LocalLibraryIcon />}
-    //     />
-    //     <BottomNavigationAction
-    //       label="모두의책방"
-    //       onClick={() => navigate("/bookcomunity")}
-    //       icon={<LibraryBooksIcon />}
-    //     />
-    //   </BottomNavigation>
-    // </Box>
   );
 };
 

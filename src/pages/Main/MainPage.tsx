@@ -7,7 +7,7 @@ import { db } from "../../firebase/Firebase";
 
 const MainPage = () => {
   const tabSlideSet = {
-    dots: false,
+    // dots: false,
     // fade: true,
     infinite: true,
     speed: 500,
@@ -41,8 +41,7 @@ const MainPage = () => {
   // }, []);
 
   return (
-    <Box sx={{}}>
-      {/* <Box sx={{ mt: "2rem" }}> */}
+    <Box>
       <SliderBox />
       <Box
         sx={{ height: "500px", backgroundColor: "red", margin: "5px" }}
@@ -53,8 +52,6 @@ const MainPage = () => {
       <Box
         sx={{ height: "500px", backgroundColor: "yellow", margin: "5px" }}
       ></Box>
-      {/* <SliderBox />
-      <SliderBox /> */}
     </Box>
   );
 };

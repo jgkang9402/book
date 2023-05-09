@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SliderTab from "./SliderTab";
 import SliderItem from "./SliderItem";
 
 const SliderBox = (): React.ReactElement => {
@@ -8,8 +7,8 @@ const SliderBox = (): React.ReactElement => {
   // const step = useRef("all");
   const [tabTarget, setTabTarget] = useState(0);
   const tabSlideSet = {
-    dots: true,
-    fade: true,
+    // dots: true,
+    // fade: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -76,7 +75,6 @@ const SliderBox = (): React.ReactElement => {
   };
   return (
     <>
-      <SliderTab tabTarget={tabTarget} setTabTarget={setTabTarget} />
       {(() => {
         switch (tabTarget) {
           case 0:
