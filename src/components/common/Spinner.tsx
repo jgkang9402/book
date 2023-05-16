@@ -15,7 +15,7 @@ const Spinner = ({ height }: Spinnertype) => {
         alignItems: "center",
       }}
     >
-      <CircularProgress size={100} color="inherit" />
+      <CircularProgress size={100} color="primary" />
     </Box>
   );
 };

@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { isEmpty } from "util/commonUtil";
 
 interface itemDataPropsType {
   itemData: {
@@ -37,7 +38,7 @@ interface itemDataPropsType {
 }
 export default function GridItem({ itemData, clickEvent }: itemDataPropsType) {
   const chooseBookFunc = (bookName: string, bookIsbn: string): void => {
-    console.log(bookIsbn, bookName);
+    if (isEmpty(bookIsbn)) alert("해당 제품의 디테일 페이지정보가 없습니다.");
     clickEvent(bookIsbn, bookName);
   };
 
@@ -66,7 +67,12 @@ export default function GridItem({ itemData, clickEvent }: itemDataPropsType) {
           variant="outlined"
           fullWidth
           sx={{ mb: "1px" }}
-          onClick={() => chooseBookFunc(itemData.title, itemData.isbn13)}
+          onClick={() =>
+            chooseBookFunc(
+              itemData.title,
+              !isEmpty(itemData.isbn13) ? itemData.isbn13 : itemData.isbn
+            )
+          }
         >
           선택
         </Button>

@@ -22,12 +22,12 @@ export const isEmpty = (
   }
 };
 
-type QueryObject = {
+type QueryToObjType = {
   [key: string]: string;
 };
 
-export const querystringToObject = (queryString: string): QueryObject => {
-  const queryObject: QueryObject = {};
+export const querystringToObject = (queryString: string): QueryToObjType => {
+  const queryObject: QueryToObjType = {};
 
   if (!queryString) {
     return queryObject;
@@ -48,7 +48,11 @@ export const querystringToObject = (queryString: string): QueryObject => {
   return queryObject;
 };
 
-export const objectToQuerystring = (queryObject: QueryObject): string => {
+type ObjToStrType = {
+  [key: string]: string | number | boolean | undefined;
+};
+
+export const objectToQuerystring = (queryObject: ObjToStrType): string => {
   const queryString = Object.entries(queryObject)
     .map(([key, value]) => `${key}=${value}`)
     .join("&");
