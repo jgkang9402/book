@@ -9,56 +9,49 @@ import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import logo from "assets/logo.png";
 import { Avatar } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import FullModalCont from "components/Modal/FullModalCont";
+import MenuModal from "components/Modal/MenuModal";
 
 const Footer = () => {
   const [curLoction, setCurLoction] = useState(-1);
+  const [openMenuModal, setOpenMenuModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const location = useLocation();
-  // const handleLocationTarget = () => {
-  //   switch (location.pathname) {
-  //     case "/book":
-  //       setCurLoction(1);
-  //       break;
-  //     case "/mybook":
-  //       setCurLoction(3);
-  //       break;
-  //     case "/bookcomunity":
-  //       setCurLoction(4);
-  //       break;
-  //     default:
-  //       setCurLoction(-1);
-  //       break;
-  //   }
-  // };
-  // useEffect(() => {
-  //   handleLocationTarget();
-  // }, [location]);
+
+  const handleNavigate = (path: string) => {
+    navigate(path);
+    if (openMenuModal) {
+      setOpenMenuModal(false);
+    }
+  };
+  const handleModal = () => {
+    setOpenMenuModal(!openMenuModal);
+  };
   const handleLocationTarget = useCallback(() => {
-    switch (location.pathname) {
-      case "/book":
+    switch (true) {
+      case location.pathname.includes("/bookcomunity"):
+        setCurLoction(4);
+        break;
+      case location.pathname.includes("/book"):
         setCurLoction(1);
         break;
-      case "/mybook":
+      case location.pathname.includes("/mybook"):
         setCurLoction(3);
-        break;
-      case "/bookcomunity":
-        setCurLoction(4);
         break;
       default:
         setCurLoction(-1);
         break;
     }
-  }, [location]);
+  }, [location.pathname]);
   useEffect(() => {
     handleLocationTarget();
-  }, [handleLocationTarget, location]);
+  }, [handleLocationTarget, curLoction]);
 
   return (
     <Box
       component={"footer"}
       sx={{
         height: "7vh",
-        // position: "sticky",
         position: "fixed",
         margin: " 0 auto",
         left: 0,
@@ -76,29 +69,46 @@ const Footer = () => {
           setCurLoction(newValue);
         }}
       >
-        <BottomNavigationAction label="메뉴" icon={<MenuIcon />} />
+        <BottomNavigationAction
+          label="메뉴"
+          onClick={handleModal}
+          icon={<MenuIcon />}
+        />
         <BottomNavigationAction
           label="책방"
-          onClick={() => navigate("/book")}
+          onClick={() => handleNavigate("/book")}
           icon={<MenuBookIcon />}
         />
         <BottomNavigationAction
-          onClick={() => navigate("/")}
+          onClick={() => handleNavigate("/")}
           icon={
             <Avatar src={logo} sx={{ margin: "0 auto" }} variant="square" />
           }
         />
         <BottomNavigationAction
           label="나의책방"
-          onClick={() => navigate("/mybook")}
+          onClick={() => handleNavigate("/mybook")}
           icon={<LocalLibraryIcon />}
         />
         <BottomNavigationAction
           label="모두의책방"
-          onClick={() => navigate("/bookcomunity")}
+          onClick={() => handleNavigate("/bookcomunity")}
           icon={<LibraryBooksIcon />}
         />
       </BottomNavigation>
+      {openMenuModal ? (
+        <FullModalCont
+          openMenuModal={openMenuModal}
+          handleClose={() => setOpenMenuModal(false)}
+        >
+          <MenuModal
+            handleModal={handleModal}
+            handleNavigate={handleNavigate}
+          />
+        </FullModalCont>
+      ) : (
+        ""
+      )}
     </Box>
   );
 };

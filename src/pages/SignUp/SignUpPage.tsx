@@ -12,10 +12,11 @@ import NavigateLink from "../../components/common/NavigateLink";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { serverTimestamp, setDoc, doc } from "firebase/firestore";
 import { auth, db } from "../../firebase/Firebase";
-import SearchModal from "../../components/SignUp/SearchModal";
 import { InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import TextBox from "../../components/common/TextBox";
+import NormalModalCont from "components/Modal/NormalModalCont";
+import SearchModal from "components/Modal/SearchModal";
 
 const theme = createTheme();
 
@@ -81,7 +82,7 @@ export default function SignUpPage() {
     },
   ];
 
-  const clickEvent = (bookIsbn: string, bookName: string) => {
+  const getPickBookData = (bookIsbn: string, bookName: string) => {
     console.log("@@@@@@@", bookIsbn, bookName);
     setSearchData({ bookName, bookIsbn });
     setOpen(false);
@@ -89,6 +90,8 @@ export default function SignUpPage() {
   const clickBookSearchBox = () => {
     setOpen(true);
   };
+  const handleClose = () => setOpen(false);
+
   const handleSubmit = async (userInfo: any) => {
     console.log("로그인@@@@@@@@", userInfo);
     createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password)
@@ -165,11 +168,13 @@ export default function SignUpPage() {
                   </Grid>
                 );
               })}
-              <SearchModal
-                open={open}
-                setOpen={setOpen}
-                clickEvent={clickEvent}
-              />
+              <NormalModalCont open={open} handleClose={handleClose}>
+                <SearchModal
+                  open={open}
+                  setOpen={setOpen}
+                  getPickBookData={getPickBookData}
+                />
+              </NormalModalCont>
             </Grid>
             <Button
               type="submit"

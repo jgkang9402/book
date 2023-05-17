@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,9 +9,17 @@ import { Search } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
 import logo from "assets/logo.png";
 import { useNavigate } from "react-router-dom";
+import FullModalCont from "components/Modal/FullModalCont";
+import SearchModal from "components/Modal/SearchModal";
 
 export default function Header() {
+  const [openMenuModal, setOpenMenuModal] = useState<boolean>(false);
   const navigate = useNavigate();
+  const getPickBookData = (bookIsbn: string, bookName: string) => {
+    navigate(`/book/${bookIsbn}`);
+    setOpenMenuModal(false);
+  };
+
   return (
     <AppBar
       sx={{
@@ -47,7 +55,6 @@ export default function Header() {
             REBOOK
           </Typography>
         </Box>
-        {/*  */}
         <Box
           sx={{
             minWidth: "20%",
@@ -56,6 +63,7 @@ export default function Header() {
           }}
         >
           <Button
+            onClick={() => setOpenMenuModal(true)}
             color="inherit"
             sx={{
               minWidth: 0,
@@ -67,6 +75,20 @@ export default function Header() {
           </Button>
         </Box>
       </Toolbar>
+      {openMenuModal ? (
+        <FullModalCont
+          openMenuModal={openMenuModal}
+          handleClose={() => setOpenMenuModal(false)}
+        >
+          <SearchModal
+            open={openMenuModal}
+            setOpen={setOpenMenuModal}
+            getPickBookData={getPickBookData}
+          />
+        </FullModalCont>
+      ) : (
+        ""
+      )}
     </AppBar>
   );
 }

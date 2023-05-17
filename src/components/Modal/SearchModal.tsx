@@ -4,7 +4,6 @@ import {
   Input,
   InputAdornment,
   InputLabel,
-  Modal,
   Typography,
 } from "@mui/material";
 import React, { useRef, useState } from "react";
@@ -25,13 +24,16 @@ const style = {
   border: "2px solid #000",
   boxShadow: 24,
   p: 4,
+  // /////
+  // margin: "0 auto",
+  // width: "100%",
 };
 
 interface PagenationBtnType {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  // clickEvent: (data: string) => void;
-  clickEvent: (bookIsbn: string, bookName: string) => void;
+  // getPickBookData: (data: string) => void;
+  getPickBookData: (bookIsbn: string, bookName: string) => void;
 }
 interface itemDataPropsType {
   adult: boolean;
@@ -58,7 +60,7 @@ interface itemDataPropsType {
   title: string;
 }
 
-const SearchModal = ({ open, setOpen, clickEvent }: PagenationBtnType) => {
+const SearchModal = ({ open, setOpen, getPickBookData }: PagenationBtnType) => {
   const [isSearching, setIsSearching] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const handleClose = () => setOpen(false);
@@ -86,62 +88,55 @@ const SearchModal = ({ open, setOpen, clickEvent }: PagenationBtnType) => {
   };
 
   return (
-    <Modal
-      open={open}
-      onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-    >
-      <Box sx={style}>
-        <Box
-          sx={{
-            "& > :not(style)": { m: 1 },
-            maxHeight: "50vh",
-            overflow: "auto",
-          }}
-        >
-          <FormControl variant="standard" sx={{ width: "90%", margin: 0 }}>
-            <InputLabel htmlFor="input-with-icon-adornment">
-              가장 감명깊게 본 책이 무엇인가요?
-            </InputLabel>
-            <Input
-              autoFocus
-              inputRef={searchInputRef}
-              onKeyUp={(e) => enterInput(e, handleSearchBook)}
-              endAdornment={
-                <InputAdornment position="start">
-                  {!isSearching ? (
-                    <SearchIcon
-                      onClick={handleSearchBook}
-                      sx={{ cursor: "pointer" }}
-                    />
-                  ) : (
-                    <Spinner size={20} height="0" />
-                  )}
-                </InputAdornment>
-              }
-            />
-          </FormControl>
-          {searchList === null || searchList.length === 0 ? (
-            <Typography
-              sx={{
-                height: "30vh",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-around",
-              }}
-              id="modal-modal-title"
-              variant="h6"
-              component="h6"
-            >
-              가장 감명깊게 본 책을 선택해주세요.
-            </Typography>
-          ) : (
-            <GridCont itemData={searchList} clickEvent={clickEvent} />
-          )}
-        </Box>
+    <Box sx={style}>
+      <Box
+        sx={{
+          "& > :not(style)": { m: 1 },
+          maxHeight: "50vh",
+          overflow: "auto",
+        }}
+      >
+        <FormControl variant="standard" sx={{ width: "90%", margin: 0 }}>
+          <InputLabel htmlFor="input-with-icon-adornment">
+            가장 감명깊게 본 책이 무엇인가요?
+          </InputLabel>
+          <Input
+            autoFocus
+            inputRef={searchInputRef}
+            onKeyUp={(e) => enterInput(e, handleSearchBook)}
+            endAdornment={
+              <InputAdornment position="start">
+                {!isSearching ? (
+                  <SearchIcon
+                    onClick={handleSearchBook}
+                    sx={{ cursor: "pointer" }}
+                  />
+                ) : (
+                  <Spinner size={20} height="0" />
+                )}
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+        {searchList === null || searchList.length === 0 ? (
+          <Typography
+            sx={{
+              height: "30vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+            }}
+            id="modal-modal-title"
+            variant="h6"
+            component="h6"
+          >
+            가장 감명깊게 본 책을 선택해주세요.
+          </Typography>
+        ) : (
+          <GridCont itemData={searchList} clickEvent={getPickBookData} />
+        )}
       </Box>
-    </Modal>
+    </Box>
   );
 };
 
