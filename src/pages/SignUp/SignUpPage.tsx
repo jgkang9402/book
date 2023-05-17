@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
@@ -11,13 +10,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import NavigateLink from "../../components/common/NavigateLink";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore";
-import { auth } from "../../firebase/Firebase";
+import { serverTimestamp, setDoc, doc } from "firebase/firestore";
+import { auth, db } from "../../firebase/Firebase";
 import SearchModal from "../../components/SignUp/SearchModal";
 import { InputAdornment } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -100,17 +94,12 @@ export default function SignUpPage() {
     createUserWithEmailAndPassword(auth, userInfo.email, userInfo.password)
       .then((res) => {
         console.log(res);
-        const user = res.user;
-        console.log(user);
-        const db = getFirestore();
-        const userRef = addDoc(collection(db, "users"), {
+        setDoc(doc(db, "users", res.user.uid), {
           email: userInfo.email,
           birth: userInfo.birth,
           favoBook: userInfo.favoBook,
           joined: serverTimestamp(),
         });
-        console.log(userRef);
-        // $router.replace('/login');
         console.log("submit");
         navigate("/signin");
       })
@@ -187,12 +176,13 @@ export default function SignUpPage() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              color="secondary"
             >
               회원가입
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <NavigateLink path={"/signin"} color={"#1976d2"}>
+                <NavigateLink path={"/signin"} color="grey">
                   이미 회원이신가요? 로그인
                 </NavigateLink>
               </Grid>

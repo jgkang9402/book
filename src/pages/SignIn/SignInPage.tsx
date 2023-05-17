@@ -1,7 +1,6 @@
 import React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
@@ -92,12 +91,13 @@ export default function SignInPage() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              color="secondary"
             >
               로그인
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <NavigateLink path={"/signup"} color={"#1976d2"}>
+                <NavigateLink path={"/signup"} color="grey">
                   회원 가입하지 않으셨나요? 회원가입
                 </NavigateLink>
               </Grid>

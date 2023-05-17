@@ -12,6 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { getSearchBook } from "../../api/AladinApi";
 import GridCont from "../common/GridCont";
 import { enterInput } from "../../util/commonUtil";
+import Spinner from "components/common/Spinner";
 
 const style = {
   position: "absolute",
@@ -58,6 +59,7 @@ interface itemDataPropsType {
 }
 
 const SearchModal = ({ open, setOpen, clickEvent }: PagenationBtnType) => {
+  const [isSearching, setIsSearching] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const handleClose = () => setOpen(false);
   const [searchList, setSearchList] = useState<itemDataPropsType[] | null>(
@@ -66,6 +68,7 @@ const SearchModal = ({ open, setOpen, clickEvent }: PagenationBtnType) => {
 
   const handleSearchBook = async () => {
     if (!searchInputRef.current?.value) return;
+    setIsSearching(true);
     const params = {
       ttbkey: process.env.REACT_APP_ALADIN_KEY,
       Query: searchInputRef.current.value,
@@ -78,6 +81,7 @@ const SearchModal = ({ open, setOpen, clickEvent }: PagenationBtnType) => {
       Version: 20131101,
     };
     const response = await getSearchBook(params);
+    setIsSearching(false);
     if (response.status === 200) setSearchList(response.data.item);
   };
 
@@ -89,8 +93,14 @@ const SearchModal = ({ open, setOpen, clickEvent }: PagenationBtnType) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <Box sx={{ "& > :not(style)": { m: 1 } }}>
-          <FormControl variant="standard" sx={{ width: "100%" }}>
+        <Box
+          sx={{
+            "& > :not(style)": { m: 1 },
+            maxHeight: "50vh",
+            overflow: "auto",
+          }}
+        >
+          <FormControl variant="standard" sx={{ width: "90%", margin: 0 }}>
             <InputLabel htmlFor="input-with-icon-adornment">
               가장 감명깊게 본 책이 무엇인가요?
             </InputLabel>
@@ -100,10 +110,14 @@ const SearchModal = ({ open, setOpen, clickEvent }: PagenationBtnType) => {
               onKeyUp={(e) => enterInput(e, handleSearchBook)}
               endAdornment={
                 <InputAdornment position="start">
-                  <SearchIcon
-                    onClick={handleSearchBook}
-                    sx={{ cursor: "pointer" }}
-                  />
+                  {!isSearching ? (
+                    <SearchIcon
+                      onClick={handleSearchBook}
+                      sx={{ cursor: "pointer" }}
+                    />
+                  ) : (
+                    <Spinner size={20} height="0" />
+                  )}
                 </InputAdornment>
               }
             />

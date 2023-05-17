@@ -3,8 +3,9 @@ import React from "react";
 
 interface Spinnertype {
   height?: string;
+  size?: number;
 }
-const Spinner = ({ height }: Spinnertype) => {
+const Spinner = ({ height, size }: Spinnertype) => {
   return (
     <Box
       sx={{
@@ -15,7 +16,7 @@ const Spinner = ({ height }: Spinnertype) => {
         alignItems: "center",
       }}
     >
-      <CircularProgress size={100} color="primary" />
+      <CircularProgress size={size ? size : 100} color="primary" />
     </Box>
   );
 };

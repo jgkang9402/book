@@ -12,35 +12,33 @@ import { RootState } from "store/store";
 import { alaDum } from "util/aladinDummy";
 import { isEmpty, querystringToObject } from "util/commonUtil";
 
+const tabList = [
+  {
+    labelName: "베스트셀러",
+    color: "#c2ae9f",
+    path: "?curtab=bestseller",
+    pathType: "bestseller",
+  },
+  {
+    labelName: "신규베스트",
+    color: "#c2ae9f",
+    path: "?curtab=itemnewspecial",
+    pathType: "itemnewspecial",
+  },
+  {
+    labelName: "블로거추천",
+    color: "#c2ae9f",
+    path: "?curtab=blogbest",
+    pathType: "blogbest",
+  },
+  {
+    labelName: "개발도서",
+    color: "#c2ae9f",
+    path: "?curtab=itemeditorchoice",
+    pathType: "itemeditorchoice",
+  },
+];
 const BookPage = () => {
-  const tabList = [
-    {
-      labelName: "베스트셀러",
-      color: "#c2ae9f",
-      path: "?curtab=bestseller",
-      pathType: "bestseller",
-    },
-    {
-      labelName: "신규베스트",
-      color: "#c2ae9f",
-      path: "?curtab=itemnewspecial",
-      pathType: "itemnewspecial",
-      // path: "?curtab=newbest",
-    },
-    {
-      labelName: "블로거추천",
-      color: "#c2ae9f",
-      // path: "?curtab=blogpick",
-      path: "?curtab=blogbest",
-      pathType: "blogbest",
-    },
-    {
-      labelName: "개발도서",
-      color: "#c2ae9f",
-      path: "?curtab=itemeditorchoice",
-      pathType: "itemeditorchoice",
-    },
-  ];
   const [curTab, setCurTabTarget] = useState(0);
   const [curPage, setCurPage] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
@@ -58,7 +56,7 @@ const BookPage = () => {
     navigate(tabList[curTab].path + `&curpage=${value}`, { replace: true });
   };
   const getBookInfo = (bookIsbn: string, bookName: string) => {
-    console.log(bookIsbn, bookName);
+    // console.log(bookIsbn, "@@@", bookName);
     navigate(bookIsbn);
   };
 
@@ -99,7 +97,6 @@ const BookPage = () => {
 
   useEffect(() => {
     if (isEmpty(location.search)) {
-      // 아예첫호출
       navigate(tabList[0].path, { replace: true });
       getBookList(tabList[0].pathType, 1);
       return;
@@ -128,7 +125,6 @@ const BookPage = () => {
         ) : (
           <Spinner height="75vh" />
         )}
-        {/* <GridCont itemData={bookList} clickEvent={getBookInfo} /> */}
       </Box>
       <Stack spacing={2} sx={{ mb: "15%" }}>
         <PageNation
