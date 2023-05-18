@@ -10,8 +10,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import NavigateLink from "../../components/common/NavigateLink";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/Firebase";
+// import { signInWithEmailAndPassword } from "firebase/auth";
+// import { auth } from "../../firebase/Firebase";
 import { isEmpty } from "../../util/commonUtil";
 import { useNavigate } from "react-router-dom";
 import TextBox from "../../components/common/TextBox";
@@ -40,7 +40,7 @@ export default function SignInPage() {
     const res = await firebaseSignIn(user.email, user.password);
     if (typeof res === "object") {
       console.log(res);
-      // navigate("/");
+      navigate("/");
       const userData = await getCollectionDoc("users", res.uid);
 
       await getCollectionAllDocs("users");

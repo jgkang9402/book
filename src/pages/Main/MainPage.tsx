@@ -1,30 +1,30 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box } from "@mui/material";
 import SliderBox from "../../components/Main/SliderBox";
-import SliderItem from "../../components/Main/SliderItem";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/Firebase";
+// import SliderItem from "../../components/Main/SliderItem";
+// import { collection, getDocs } from "firebase/firestore";
+// import { db } from "../../firebase/Firebase";
 
 const MainPage = () => {
-  const tabSlideSet = {
-    // dots: false,
-    // fade: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    // autoplay: true,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          // slideToShow: 2,
-        },
-      },
-    ],
-    // autoplaySpeed: 2500,
-  };
+  // const tabSlideSet = {
+  //   // dots: false,
+  //   // fade: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   slidesToShow: 4,
+  //   slidesToScroll: 4,
+  //   initialSlide: 0,
+  //   // autoplay: true,
+  //   responsive: [
+  //     {
+  //       breakpoint: 768,
+  //       settings: {
+  //         // slideToShow: 2,
+  //       },
+  //     },
+  //   ],
+  //   // autoplaySpeed: 2500,
+  // };
   // const test = async () => {
   //   const usersCollectionRef = collection(db, "users");
   //   console.log(usersCollectionRef);

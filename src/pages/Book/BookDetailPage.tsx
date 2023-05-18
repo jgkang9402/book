@@ -102,6 +102,7 @@ const BookDetailPage = () => {
   useEffect(() => {
     // getDetailData();
     multipleAixos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

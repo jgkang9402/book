@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Button,
   Card,
   CardContent,
   CardMedia,
-  CircularProgress,
   Typography,
 } from "@mui/material";
 import Slider from "react-slick";
-import useAxios from "../../hooks/useAxios";
 import styled from "@emotion/styled";
 import { alaDum } from "../../util/aladinDummy";
-import Spinner from "../common/Spinner";
 
 export const StyledSlider = styled(Slider)`
   .slick-prev:before,

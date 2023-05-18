@@ -63,7 +63,7 @@ interface itemDataPropsType {
 const SearchModal = ({ open, setOpen, getPickBookData }: PagenationBtnType) => {
   const [isSearching, setIsSearching] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => setOpen(false);
   const [searchList, setSearchList] = useState<itemDataPropsType[] | null>(
     null
   );

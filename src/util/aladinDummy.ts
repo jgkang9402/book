@@ -1,31 +1,3 @@
-type BookDataType = {
-  alaDum: object[];
-  // adult: boolean;
-  // author: String;
-  // bestDuration: String;
-  // bestRank: number;
-  // categoryId: number;
-  // categoryName: String;
-  // cover: String;
-  // customerReviewRank: number;
-  // description: string;
-  // fixedPrice: boolean;
-  // isbn: String;
-  // isbn13: String;
-  // itemId: number;
-  // link: String;
-  // mallType: String;
-  // mileage: number;
-  // priceSales: number;
-  // priceStandard: number;
-  // pubDate: String;
-  // publisher: String;
-  // salesPoint: number;
-  // stockStatus: String;
-  // subInfo: Object;
-  // title: String;
-};
-
 export const alaDum = [
   {
     adult: false,

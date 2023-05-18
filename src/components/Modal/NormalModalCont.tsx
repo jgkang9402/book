@@ -1,7 +1,5 @@
 import React, { JSXElementConstructor } from "react";
 import { Modal } from "@mui/material";
-import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
-import SearchModal from "./SearchModal";
 
 interface PagenationBtnType {
   open: boolean;

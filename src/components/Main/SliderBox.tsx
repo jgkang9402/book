@@ -5,7 +5,7 @@ const SliderBox = (): React.ReactElement => {
   // const [data, setData] = useState<BookDataType[]>([]);
   // const [step, setStep] = useState("all");
   // const step = useRef("all");
-  const [tabTarget, setTabTarget] = useState(0);
+  const [tabTarget] = useState(0);
   const tabSlideSet = {
     // dots: true,
     // fade: true,

@@ -1,15 +1,15 @@
-import { Box, Pagination, Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { getTypeListBook } from "api/AladinApi";
 import GridCont from "components/common/GridCont";
 import NavigationTab from "components/common/NavigationTab";
 import PageNation from "components/common/PageNation";
 import Spinner from "components/common/Spinner";
-import { useAppDispatch, useAppSelector } from "hooks/useStoreHooks";
+// import { useAppDispatch, useAppSelector } from "hooks/useStoreHooks";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 // import { handleCurPage } from "store/slices/bookSlice";
-import { RootState } from "store/store";
-import { alaDum } from "util/aladinDummy";
+// import { RootState } from "store/store";
+// import { alaDum } from "util/aladinDummy";
 import { isEmpty, querystringToObject } from "util/commonUtil";
 
 const tabList = [
@@ -111,6 +111,7 @@ const BookPage = () => {
         getBookList(querystringToObject(location.search).curtab, curPage);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [curPage, curTab]);
   return (
     <>
