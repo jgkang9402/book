@@ -15,12 +15,20 @@ import { auth } from "../../firebase/Firebase";
 import { isEmpty } from "../../util/commonUtil";
 import { useNavigate } from "react-router-dom";
 import TextBox from "../../components/common/TextBox";
+import {
+  firebaseSignIn,
+  getCollectionAllDocs,
+  getCollectionDoc,
+} from "api/FirebaseApi";
+import { useAppDispatch } from "hooks/useStoreHooks";
+import { initUserInfo } from "store/slices/userSlice";
 
 const theme = createTheme();
 
 export default function SignInPage() {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
@@ -29,13 +37,30 @@ export default function SignInPage() {
       password: data.get("password") as string,
     };
     if (isEmpty(user.email) || isEmpty(user.password)) return;
+    const res = await firebaseSignIn(user.email, user.password);
+    if (typeof res === "object") {
+      console.log(res);
+      // navigate("/");
+      const userData = await getCollectionDoc("users", res.uid);
 
-    signInWithEmailAndPassword(auth, user.email, user.password)
-      .then((res) => {
-        console.log(res);
-        navigate("/");
-      })
-      .catch((err) => console.log("error@@@", err.me));
+      await getCollectionAllDocs("users");
+      const test = {
+        email: res.email,
+        birth: userData?.birth,
+        uid: res.uid,
+        favoBook: userData?.favoBook,
+      };
+      dispatch(initUserInfo(test));
+    } else {
+      alert(res);
+    }
+
+    // signInWithEmailAndPassword(auth, user.email, user.password)
+    //   .then((res) => {
+    //     console.log(res);
+    //     navigate("/");
+    //   })
+    //   .catch((err) => console.log("error@@@", err.me));
   };
 
   return (

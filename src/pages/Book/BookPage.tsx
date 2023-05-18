@@ -7,7 +7,7 @@ import Spinner from "components/common/Spinner";
 import { useAppDispatch, useAppSelector } from "hooks/useStoreHooks";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { handleCurPage } from "store/slices/bookSlice";
+// import { handleCurPage } from "store/slices/bookSlice";
 import { RootState } from "store/store";
 import { alaDum } from "util/aladinDummy";
 import { isEmpty, querystringToObject } from "util/commonUtil";
