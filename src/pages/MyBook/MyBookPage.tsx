@@ -1,10 +1,10 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import { getCollectionDoc } from "api/FirebaseApi";
 import GridCont from "components/common/GridCont";
 import NavigateBtn from "components/common/NavigateBtn";
 import NavigationTab from "components/common/NavigationTab";
 import { DocumentData } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const tabList = [
@@ -25,7 +25,7 @@ const tabList = [
 const MyBookPage = () => {
   // const
   const [tabTarget, setTabTarget] = useState(0);
-  const [userLikeList, setUserLikeList] = useState([]);
+  // const [userLikeList, setUserLikeList] = useState([]);
   const [reportList, setReportList] = useState<[] | DocumentData[]>([]);
   const navigate = useNavigate();
   const handleTab = (target: number) => {
