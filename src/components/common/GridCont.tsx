@@ -2,6 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Unstable_Grid2";
 import GridItem from "./GridItem";
+import { DocumentData } from "firebase/firestore";
 
 interface itemDataPropsType {
   adult: boolean;
@@ -30,9 +31,9 @@ interface itemDataPropsType {
   title: string;
 }
 interface GridContPropsType {
-  itemData: itemDataPropsType[] | null | [];
+  itemData: itemDataPropsType[] | null | [] | DocumentData[];
   // clickEvent: (data: string) => void;
-  clickEvent: (bookIsbn: string, bookName: string) => void;
+  clickEvent: (bookIsbn: string, bookName: string, bookImg: string) => void;
 }
 
 export default function GridCont({ itemData, clickEvent }: GridContPropsType) {
@@ -41,7 +42,7 @@ export default function GridCont({ itemData, clickEvent }: GridContPropsType) {
       <Grid
         container
         spacing={{ xs: 2, md: 2 }}
-        columns={{ xs: 4, sm: 9, md: 12 }}
+        columns={{ xs: 4, sm: 3, md: 6 }}
         sx={{ overflow: "scroll" }}
       >
         {itemData !== null
@@ -49,6 +50,7 @@ export default function GridCont({ itemData, clickEvent }: GridContPropsType) {
               <Grid
                 sx={{
                   height: "30vh",
+                  textAlign: "center",
                 }}
                 xs={2}
                 sm={3}
@@ -61,5 +63,29 @@ export default function GridCont({ itemData, clickEvent }: GridContPropsType) {
           : ""}
       </Grid>
     </Box>
+    // <Box sx={{ flexGrow: 1 }}>
+    //   <Grid
+    //     container
+    //     spacing={{ xs: 2, md: 2 }}
+    //     columns={{ xs: 4, sm: 9, md: 12 }}
+    //     sx={{ overflow: "scroll" }}
+    //   >
+    //     {itemData !== null
+    //       ? itemData?.map((item, idx) => (
+    //           <Grid
+    //             sx={{
+    //               height: "30vh",
+    //             }}
+    //             xs={2}
+    //             sm={3}
+    //             md={3}
+    //             key={idx}
+    //           >
+    //             <GridItem itemData={item} clickEvent={clickEvent} />
+    //           </Grid>
+    //         ))
+    //       : ""}
+    //   </Grid>
+    // </Box>
   );
 }

@@ -43,7 +43,7 @@ const MainPage = () => {
   return (
     <Box>
       <SliderBox />
-      <Box
+      {/* <Box
         sx={{ height: "500px", backgroundColor: "red", margin: "5px" }}
       ></Box>
       <Box
@@ -51,7 +51,7 @@ const MainPage = () => {
       ></Box>
       <Box
         sx={{ height: "500px", backgroundColor: "yellow", margin: "5px" }}
-      ></Box>
+      ></Box> */}
     </Box>
   );
 };

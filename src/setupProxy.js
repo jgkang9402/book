@@ -22,13 +22,4 @@ module.exports = function (app) {
       // },
     })
   );
-  // app.use(
-  //   createProxyMiddleware("/NL", {
-  //     target: "https://www.nl.go.kr",
-  //     changeOrigin: true,
-  //     // pathRewrite: {
-  //     //   "^/api/": "/",
-  //     // },
-  //   })
-  // );
 };

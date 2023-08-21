@@ -33,7 +33,11 @@ interface PagenationBtnType {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   // getPickBookData: (data: string) => void;
-  getPickBookData: (bookIsbn: string, bookName: string) => void;
+  getPickBookData: (
+    bookIsbn: string,
+    bookName: string,
+    bookImg: string
+  ) => void;
 }
 interface itemDataPropsType {
   adult: boolean;

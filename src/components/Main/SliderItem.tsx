@@ -10,6 +10,7 @@ import {
 import Slider from "react-slick";
 import styled from "@emotion/styled";
 import { alaDum } from "../../util/aladinDummy";
+import { useNavigate } from "react-router-dom";
 
 export const StyledSlider = styled(Slider)`
   .slick-prev:before,
@@ -65,6 +66,7 @@ const SliderItem = ({
   //   apiType: "aladin",
   //   tabTarget: tabTarget,
   // });
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(123);
@@ -118,6 +120,7 @@ const SliderItem = ({
                     variant="contained"
                     size="small"
                     // sx={{ margin: "0 auto" }}
+                    onClick={() => navigate(`/book/${item.isbn13}`)}
                   >
                     책 정보 보러가기
                   </Button>

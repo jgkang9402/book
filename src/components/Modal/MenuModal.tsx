@@ -50,6 +50,13 @@ const MenuModal = ({ handleModal, handleNavigate }: MenuModalProps) => {
           <ListItemText primary="나의책방" />
         </ListItem>
         <Divider />
+        <ListItem button>
+          <ListItemText
+            primary="앱정보"
+            onClick={() => handleNavigate("/appinfo")}
+          />
+        </ListItem>
+        <Divider />
       </List>
     </>
   );

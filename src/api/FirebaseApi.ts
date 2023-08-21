@@ -38,10 +38,11 @@ export const firebaseSignIn = async (email: string, pwd: string) => {
 
 export const createDocInUsers = async (
   uid: string,
-  userInfo: { email: string; birth: number; favoBook: string }
+  userInfo: { email: string; name: string; birth: number; favoBook: string }
 ) => {
   const result = await setDoc(doc(db, "users", uid), {
     email: userInfo.email,
+    name: userInfo.name,
     birth: userInfo.birth,
     favoBook: userInfo.favoBook,
     joined: serverTimestamp(),
@@ -55,6 +56,62 @@ export const createDocInUsers = async (
       return err.code;
     });
   console.log(result);
+};
+export const createDocInReport = async (
+  uid: string,
+  // report: { title: string; content: string }
+  reportData: {
+    title: string;
+    content: string;
+    bookName: string;
+    isbn: string;
+    cover: string;
+    // title: string;
+    // content: string;
+    // bookName: string;
+    // bookIsbn: string;
+    // bookImg: string;
+  }
+) => {
+  const prevArr = await getCollectionDoc("reportList", uid);
+  // 현재는 prevArr을 쓰고있지만 나중엔 파라미터로 리덕스에 저장되있는 나의 데이터를 보내어 prevArr을 쓸것.
+  const result = await setDoc(doc(db, "reportList", uid), {
+    ...prevArr,
+    [reportData.title]: {
+      pubDate: serverTimestamp(),
+      ...reportData,
+    },
+  })
+    .then((res) => {
+      console.log(res);
+      // return res;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err.code;
+    });
+  console.log(result);
+
+  /*  */
+  // const result = await setDoc(doc(db, "reportList", uid), {
+  //   [reportData.title]: {
+  //     pubDate: serverTimestamp(),
+  //     ...reportData,
+  //   },
+  // })
+  //   // const result = await setDoc(doc(db, "reportList", uid), {
+  //   //   pubDate: serverTimestamp(),
+  //   //   ...reportData,
+  //   // })
+  //   .then((res) => {
+  //     console.log(res);
+  //     // return res;
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     return err.code;
+  //   });
+  // console.log(result);
 };
 
 export const getCollectionDoc = async (

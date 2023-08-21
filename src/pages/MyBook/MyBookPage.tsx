@@ -1,5 +1,11 @@
+import { Box, Button } from "@mui/material";
+import { getCollectionDoc } from "api/FirebaseApi";
+import GridCont from "components/common/GridCont";
+import NavigateBtn from "components/common/NavigateBtn";
 import NavigationTab from "components/common/NavigationTab";
-import React, { useState } from "react";
+import { DocumentData } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const tabList = [
   {
@@ -17,10 +23,32 @@ const tabList = [
 ];
 
 const MyBookPage = () => {
+  // const
   const [tabTarget, setTabTarget] = useState(0);
+  const [userLikeList, setUserLikeList] = useState([]);
+  const [reportList, setReportList] = useState<[] | DocumentData[]>([]);
+  const navigate = useNavigate();
   const handleTab = (target: number) => {
     setTabTarget(target);
   };
+  const getMyReportList = async () => {
+    console.log(123);
+
+    const collectionName = "ZWZq4Ad0pfaCTJgT0x8MB0iKsfD3";
+    const myReports = await getCollectionDoc("reportList", collectionName);
+    console.log(myReports);
+    if (myReports !== undefined) {
+      const reports = Object.values(myReports);
+      setReportList(reports);
+    }
+  };
+  const getBookInfo = (bookIsbn: string, bookName: string) => {
+    navigate(bookIsbn);
+  };
+
+  useEffect(() => {
+    getMyReportList();
+  }, []);
 
   return (
     <>
@@ -29,6 +57,12 @@ const MyBookPage = () => {
         handleTabFunc={handleTab}
         tabList={tabList}
       />
+      <Box textAlign={"end"}>
+        <NavigateBtn path="/mybook/create">글쓰기</NavigateBtn>
+      </Box>
+      <Box>
+        <GridCont itemData={reportList} clickEvent={getBookInfo} />
+      </Box>
     </>
   );
 };

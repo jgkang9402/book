@@ -41,6 +41,12 @@ export default function SignUpPage() {
       xs: 12,
     },
     {
+      name: "name",
+      helperText: "Name",
+      type: "name",
+      xs: 12,
+    },
+    {
       name: "birth",
       helperText: "Birth",
       type: "date",
@@ -100,6 +106,7 @@ export default function SignUpPage() {
         setDoc(doc(db, "users", res.user.uid), {
           email: userInfo.email,
           birth: userInfo.birth,
+          name: userInfo.name,
           favoBook: userInfo.favoBook,
           joined: serverTimestamp(),
         });
@@ -114,6 +121,7 @@ export default function SignUpPage() {
     if (
       joinFormData.get("email") === "" ||
       joinFormData.get("password") === "" ||
+      joinFormData.get("name") === "" ||
       joinFormData.get("birth") === "" ||
       joinFormData.get("favoBook") === ""
     ) {
@@ -122,11 +130,13 @@ export default function SignUpPage() {
     }
     const email = joinFormData.get("email") as string;
     const password = joinFormData.get("password") as string;
+    const name = joinFormData.get("name") as string;
     const birth = joinFormData.get("birth") as string;
     // const favoBook = joinFormData.get("favoBook") as string;
     const userInfo = {
       email: email,
       password: password,
+      name: name,
       birth: birth,
       favoBook: searchData?.bookIsbn,
     };

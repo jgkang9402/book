@@ -103,7 +103,7 @@ const BookDetailPage = () => {
     // getDetailData();
     multipleAixos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [bookIdParams]);
   return (
     <>
       <Container>

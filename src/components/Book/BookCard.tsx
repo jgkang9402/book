@@ -54,7 +54,7 @@ const BookCard: React.FC<BookCardProps> = ({
   aladinDetailData,
   naverBookDetailData,
 }) => {
-  console.log(naverBookDetailData);
+  console.log(aladinDetailData);
   const [blogList, setBlogList] = useState<BlogDataType[] | [] | null>([]);
   const [expanded, setExpanded] = useState(false);
   const getNaverBlog = async () => {
@@ -103,6 +103,15 @@ const BookCard: React.FC<BookCardProps> = ({
           {aladinDetailData?.pubDate}
           <br />
           {aladinDetailData?.subInfo.ratingInfo.ratingScore}/10
+          <br />
+          <a
+            style={{ textDecoration: "none", color: "#333" }}
+            href={aladinDetailData?.link}
+            target="_blank"
+            rel="noreferrer"
+          >
+            책보러가기
+          </a>
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {aladinDetailData?.description}

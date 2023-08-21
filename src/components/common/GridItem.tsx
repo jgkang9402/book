@@ -6,40 +6,47 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { isEmpty } from "util/commonUtil";
+import { DocumentData } from "firebase/firestore";
 
 interface itemDataPropsType {
-  itemData: {
-    adult: boolean;
-    author: string;
-    // bestDuration?: string;
-    // bestRank: number;
-    categoryId: number;
-    categoryName: string;
-    cover: string;
-    customerReviewRank: number;
-    description: string;
-    fixedPrice: boolean;
-    isbn: string;
-    isbn13: string;
-    itemId: number;
-    link: string;
-    mallType: string;
-    mileage: number;
-    priceSales: number;
-    priceStandard: number;
-    pubDate: string;
-    publisher: string;
-    salesPoint: number;
-    stockStatus: string;
-    subInfo: object;
-    title: string;
-  };
-  clickEvent: (bookIsbn: string, bookName: string) => void;
+  itemData:
+    | {
+        adult: boolean;
+        author: string;
+        // bestDuration?: string;
+        // bestRank: number;
+        categoryId: number;
+        categoryName: string;
+        cover: string;
+        customerReviewRank: number;
+        description: string;
+        fixedPrice: boolean;
+        isbn: string;
+        isbn13: string;
+        itemId: number;
+        link: string;
+        mallType: string;
+        mileage: number;
+        priceSales: number;
+        priceStandard: number;
+        pubDate: string;
+        publisher: string;
+        salesPoint: number;
+        stockStatus: string;
+        subInfo: object;
+        title: string;
+      }
+    | DocumentData;
+  clickEvent: (bookIsbn: string, bookName: string, bookImg: string) => void;
 }
 export default function GridItem({ itemData, clickEvent }: itemDataPropsType) {
-  const chooseBookFunc = (bookName: string, bookIsbn: string): void => {
+  const chooseBookFunc = (
+    bookName: string,
+    bookIsbn: string,
+    bookImg: string
+  ): void => {
     if (isEmpty(bookIsbn)) alert("해당 제품의 디테일 페이지정보가 없습니다.");
-    clickEvent(bookIsbn, bookName);
+    clickEvent(bookIsbn, bookName, bookImg);
   };
 
   return (
@@ -49,7 +56,7 @@ export default function GridItem({ itemData, clickEvent }: itemDataPropsType) {
         image={itemData.cover}
         title="green iguana"
       />
-      <CardContent sx={{ pb: "0", height: "25%", overflow: "scroll" }}>
+      <CardContent sx={{ pb: "0", height: "25%", overflow: "auto" }}>
         <Typography gutterBottom component="div" sx={{ fontSize: ".8rem" }}>
           {itemData.title}
         </Typography>
@@ -70,7 +77,8 @@ export default function GridItem({ itemData, clickEvent }: itemDataPropsType) {
           onClick={() =>
             chooseBookFunc(
               itemData.title,
-              !isEmpty(itemData.isbn13) ? itemData.isbn13 : itemData.isbn
+              !isEmpty(itemData.isbn13) ? itemData.isbn13 : itemData.isbn,
+              itemData.cover
             )
           }
         >

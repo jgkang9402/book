@@ -6,6 +6,8 @@ import BookPage from "pages/Book/BookPage";
 import MyBookPage from "pages/MyBook/MyBookPage";
 import BookComunityPage from "pages/BookComunity/BookComunityPage";
 import BookDetailPage from "pages/Book/BookDetailPage";
+import AppInfo from "pages/AppInfo/AppInfo";
+import CreateReportPage from "pages/MyBook/CreateReportPage";
 
 const Router = () => {
   return (
@@ -16,7 +18,9 @@ const Router = () => {
       <Route path="/book" element={<BookPage />} />
       <Route path="/book/:id" element={<BookDetailPage />} />
       <Route path="/mybook" element={<MyBookPage />} />
+      <Route path="/mybook/create" element={<CreateReportPage />} />
       <Route path="/bookcomunity" element={<BookComunityPage />} />
+      <Route path="/appinfo" element={<AppInfo />} />
     </Routes>
   );
 };
